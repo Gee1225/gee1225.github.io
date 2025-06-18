@@ -8,7 +8,7 @@ redirect_from:
 ---
 I am an applied microeconomist and behavioral economist who utilizes experimental and causal inference techniques in my research. My current research interests are in Labor Economics, Development Economics, Entrepreneurship and Diversity.
 
-My past research have been supported by the National Science Foundation (NSF SES #: [2215203](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2215203&HistoricalAwards=false), [iFree](https://ifreeweb.org/), [PEDL](https://pedl.cepr.org/), [The University of Arkansas Department of Economics](https://walton.uark.edu/departments/economics/index.php), and the [Walton Business Behavioral Research Laboratory](https://walton.uark.edu/initiatives/bbrl/).
+My past research have been supported by the National Science Foundation (NSF SES #: [2215203](https://www.nsf.gov/awardsearch/showAward?AWD_ID=2215203&HistoricalAwards=false)), [iFree](https://ifreeweb.org/), [PEDL](https://pedl.cepr.org/), [The University of Arkansas Department of Economics](https://walton.uark.edu/departments/economics/index.php), and the [Walton Business Behavioral Research Laboratory](https://walton.uark.edu/initiatives/bbrl/).
 
 Selected Fellowships and Awards
 ======
