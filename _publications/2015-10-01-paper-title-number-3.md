@@ -1,14 +1,13 @@
 ---
-title: "Paper Title Number 3"
+title: "When the Modes of Interaction Matter: Virtual and In-Person Integration of Newcomers in a Dynamic Setting"
 collection: publications
 category: manuscripts
-permalink: /publication/2015-10-01-paper-title-number-3
-excerpt: 'This paper is about the number 3. The number 4 is left for future work.'
-date: 2015-10-01
-venue: 'Journal 1'
-slidesurl: 'http://academicpages.github.io/files/slides3.pdf'
-paperurl: 'http://academicpages.github.io/files/paper3.pdf'
-citation: 'Your Name, You. (2015). &quot;Paper Title Number 3.&quot; <i>Journal 1</i>. 1(3).'
+permalink: /publication/2024-01-03-virtual-onboarding
+excerpt: 'Analyzes the impact of virtual versus in-person onboarding of newcomers on team performance in evolving organizational settings.'
+date: 2024-01-03
+venue: 'With Miguel Cuellar and Sherry Li'
+paperurl: ''
+citation: 'Agyeah, G., Cuellar, M., & Li, S. (2024). "When the Modes of Interaction Matter: Virtual and In-Person Integration of Newcomers in a Dynamic Setting."'
 ---
 
-The contents above will be part of a list of publications, if the user clicks the link for the publication than the contents of section will be rendered as a full page, allowing you to provide more information about the paper for the reader. When publications are displayed as a single page, the contents of the above "citation" field will automatically be included below this section in a smaller font.
+The COVID-19 pandemic triggered a shift to remote work, reshaping team dynamics. This paper examines how onboarding methods—virtual vs. in-person—affect team cooperation and newcomer performance. By manipulating introduction methods, the study evaluates how integration impacts outcomes for both incumbents and newcomers, offering evidence for best practices in hybrid team structures.
