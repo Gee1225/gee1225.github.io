@@ -1,20 +1,16 @@
 ---
-title: "Teaching experience 2"
+title: "Basic Economics: Theory and Practice"
 collection: teaching
-type: "Workshop"
-permalink: /teaching/2015-spring-teaching-1
-venue: "University 1, Department"
-date: 2015-01-01
-location: "City, Country"
+type: "Undergraduate course"
+permalink: /teaching/2021-fall-basic-economics
+venue: "University of Arkansas, Department of Economics"
+date: 2021-08-01
+location: "Fayetteville, AR, USA"
 ---
 
-This is a description of a teaching experience. You can use markdown like any other post.
+Served as primary instructor for two semesters with class sizes of around 42 students. Covered foundational economic theory including supply/demand, price mechanisms, and market structures.
 
-Heading 1
-======
-
-Heading 2
-======
-
-Heading 3
-======
+**Highlights:**
+- Emphasized applied problem-solving and case-based learning
+- Developed students’ economic reasoning and data interpretation skills
+- Tailored instruction to accommodate a wide range of student backgrounds
