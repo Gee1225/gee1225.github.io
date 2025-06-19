@@ -11,7 +11,7 @@ redirect_from:
 
 Education
 ======
-* Ph.D. in Economics, University of Arkansas (Expected 2024)  
+* Ph.D. in Economics, University of Arkansas (2024)  
   * Dissertation: *Exploring Diversity, Discrimination, and Performance Dynamics*  
   * Advisor: Sherry Li  
   * Committee: Peter McGee, Andy Brownback, Md Amzad Hossain  
