@@ -17,8 +17,11 @@ main:
   - title: "Teaching"
     url: /teaching/    
     
-  - title: Visa Classifier
-  url: /portfolio/visa-classifier
+  - title: "Portfolio"Add commentMore actions
+    url: /portfolio/
+    
+  # - title: Visa Classifier
+  # url: /portfolio/visa-classifier
         
   - title: "Blog Posts"
     url: /year-archive/
