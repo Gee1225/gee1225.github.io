@@ -16,12 +16,12 @@ main:
 
   - title: "Teaching"
     url: /teaching/    
-    
-  - title: "Portfolio"Add commentMore actions
+
+  - title: "Portfolio"
     url: /portfolio/
     
-  # - title: Visa Classifier
-  # url: /portfolio/visa-classifier
+  # - title: "Visa Classifier"
+  #   url: /portfolio/visa-classifier/
         
   - title: "Blog Posts"
     url: /year-archive/
