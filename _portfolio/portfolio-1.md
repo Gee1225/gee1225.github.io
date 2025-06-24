@@ -1,7 +1,26 @@
 ---
-title: "Portfolio item number 1"
-excerpt: "Short description of portfolio item number 1<br/><img src='/images/500x300.png'>"
+title: "Visa Approval Classifier"
+excerpt: "An interactive Streamlit app to explore ML classifiers on visa approval prediction. 📊"
 collection: portfolio
+image: /images/visa-classifier.png
 ---
 
-This is an item in your portfolio. It can be have images or nice text. If you name the file .md, it will be parsed as markdown. If you name the file .html, it will be parsed as HTML. 
+<iframe src="https://gee1225.streamlit.app/" width="100%" height="800" frameborder="0"></iframe>
+
+**Technologies Used**:
+- Streamlit
+- scikit-learn (SVM, Random Forest, Logistic Regression)
+- Pandas & NumPy
+- Data visualization with ROC, Confusion Matrix, Precision-Recall
+
+**Description**:
+This web application allows users to explore how different machine learning models can be used to predict visa approval outcomes. The app features:
+
+- Adjustable model hyperparameters
+- Side-by-side performance comparison via accuracy, precision, and recall
+- Interactive metric visualization: ROC Curve, Precision-Recall Curve, and Confusion Matrix
+- Raw data inspection and summary statistics
+
+Use the app to deepen your understanding of classification tasks in real-world datasets.
+
+[🔗 View the App in Fullscreen ➜](https://gee1225.streamlit.app/)
