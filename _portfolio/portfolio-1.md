@@ -5,7 +5,8 @@ collection: portfolio
 image: /images/visa-classifier.png
 ---
 
-<iframe src="https://gee1225.streamlit.app/" width="100%" height="800" frameborder="0"></iframe>
+<a href="https://gee1225.streamlit.app/" target="_blank" class="btn btn--primary">🚀 Launch App</a>
+
 
 **Technologies Used**:
 - Streamlit
