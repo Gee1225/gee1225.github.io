@@ -1,0 +1,28 @@
+<!-- _portfolio/forecasting-model.html -->
+---
+title: "Time Series Forecasting Model"
+excerpt: "A Python-based forecasting app using ARIMA and Prophet to predict future trends.📈"
+collection: portfolio
+image: /images/forecasting-model.png
+---
+<div class="portfolio-card">
+  <h2>📈 Time Series Forecasting Model</h2>
+  <p>
+    An interactive web app built in Streamlit that ingests historical data and applies ARIMA and Facebook Prophet algorithms to generate and visualize forecasts.
+  </p>
+  <a href="https://yourusername-forecasting.streamlit.app/" class="btn btn--primary" target="_blank">🚀 Launch Forecasting App</a>
+
+  <h3>Technologies Used:</h3>
+  <ul>
+    <li>Python & Streamlit</li>
+    <li>statsmodels (ARIMA)</li>
+    <li>prophet</li>
+    <li>pandas & matplotlib</li>
+  </ul>
+
+  <h3>Description:</h3>
+  <p>
+    Users upload their time series dataset (e.g., sales, stock prices), select model parameters, and view interactive forecast plots with confidence intervals.  
+    The app also computes error metrics (MAE, RMSE) for model comparison.
+  </p>
+</div>
