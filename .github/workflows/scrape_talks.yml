@@ -1,23 +1,33 @@
-name: Scrape Talk Locations
+name: Scrape Talks & Rebuild Portfolio
 
 on:
   push:
     branches: [ master ]
+    paths:
+      - 'talks/**'
+      - 'talkmap.ipynb'
+      - '_portfolio/**'
+      - '**/*.md'
+      - '.github/workflows/scrape_talks.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write
-  actions: write     # required if you want your push to trigger other workflows
+  contents: write          # push back to repo
+  pages: write             # call Pages build API
+  actions: write           # only needed if you want this push to trigger OTHER workflows
 
 jobs:
-  build:
+  scrape-and-build:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -25,21 +35,30 @@ jobs:
         run: |
           pip install -U jupyter pandas requests beautifulsoup4 geopy getorg
 
-      - name: Run notebook
+      - name: Execute notebook
         run: |
           jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
 
-      - name: Commit & push (if any)
+      - name: Commit & push changes if any
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}   # MUST include workflow scope
+          GH_PAT: ${{ secrets.GH_PAT }}   # PAT with repo+workflow scope (or drop and rely on GITHUB_TOKEN if you don't need to trigger other workflows)
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           if git diff --cached --quiet; then
             echo "No changes to commit"
-            exit 0
+          else
+            git commit -m "Automated update of talk locations & portfolio rebuild trigger"
+            git remote set-url origin https://x-access-token:${GH_PAT:-${GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git
+            git push origin HEAD
           fi
-          git commit -m "Automated update of talk locations"
-          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/Gee1225/gee1225.github.io.git
-          git push origin HEAD
+
+      - name: Trigger GitHub Pages rebuild
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -L -X POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+            https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds
