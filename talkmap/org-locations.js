@@ -1,22 +1,27 @@
 var addressPoints = [
   [
-    "Talk 2 on Relevant Topic in Your Field<br />London School of Testing; London, UK",
-    51.4893335,
-    -0.14405508452768728
+    "Racial and Gender Diversity, Newcomers and Team Performance in a Dynamic Setting<br />ESA North America Conference; Charlotte, NC, USA",
+    35.2272086,
+    -80.8430827
   ],
   [
-    "Tutorial 1 on Relevant Topic in Your Field<br />UC-Berkeley Institute for Testing Science; Berkeley, CA, USA",
-    37.8708393,
-    -122.272863
+    "Racial and Gender Diversity, Newcomers and Team Performance in a Dynamic Setting<br />WEAI Conference; San Diego, CA, USA",
+    32.7174202,
+    -117.162772
   ],
   [
-    "Conference Proceeding talk 3 on Relevant Topic in Your Field<br />Testing Institute of America 2014 Annual Conference; Los Angeles, CA, USA",
-    34.0536909,
-    -118.242766
+    "When the Modes of Interaction Matter: Virtual and In-person Integration of Newcomers<br />SEA Conference; San Antonio, TX, USA",
+    29.4246002,
+    -98.4951405
   ],
   [
-    "Talk 1 on Relevant Topic in Your Field<br />UC San Francisco, Department of Testing; San Francisco, CA, USA",
-    37.7792588,
-    -122.4193286
+    "The PhD Life<br />Western Illinois University; Macomb, IL, USA",
+    40.4588934,
+    -90.6713939
+  ],
+  [
+    "Racial and Gender Diversity, Newcomers and Team Performance in a Dynamic Setting<br />AEAMP Conference; Washington, DC, USA",
+    38.8950368,
+    -77.0365427
   ]
 ];
