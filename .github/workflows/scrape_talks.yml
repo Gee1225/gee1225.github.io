@@ -2,47 +2,97 @@ name: Scrape Talk Locations
 
 on:
   push:
-    paths:
-      - 'talks/**'
-      - 'talkmap.ipynb'
+    branches: [ main ]           # <- change if your default branch is different
+  workflow_dispatch:             # allow manual runs from the Actions tab
+
+permissions:
+  contents: write                # needed to push back to the repo
+  actions: write                 # only if you want the follow-up push to trigger other workflows
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0         # required when committing/pushing back
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'  # Specify the Python version you need
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
 
-    - name: Install dependencies
-      run: |
-        pip install jupyter pandas requests beautifulsoup4 geopy  # Add other dependencies as needed
-        pip install getorg --upgrade
+      - name: Install dependencies
+        run: |
+          pip install -U jupyter pandas requests beautifulsoup4 geopy getorg
 
-    - name: Run Jupyter Notebook
-      run: |
-        jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
+      - name: Run notebook
+        run: |
+          jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
 
-    # - name: Commit changes
-    #   run: |
-    #     git config user.name "github-actions[bot]"
-    #     git config user.email "github-actions[bot]@users.noreply.github.com"
-    #     git add .
-    #     git commit -m "Automated update of talk locations" || echo "No changes to commit"
-    #     git push
+      - name: Commit & push changes (if any)
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}   # PAT with repo+workflow scopes, or remove and rely on GITHUB_TOKEN
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "Automated update of talk locations"
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/Gee1225/gee1225.github.io.git
+          git push origin HEAD
 
-    - name: Commit and Push changes
-      env:
-        GH_PAT: ${{ secrets.GH_PAT }}
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add .
-        git commit -m "Automated update of talk locations" || echo "No changes to commit"
-        git remote set-url origin https://x-access-token:${GH_PAT}@github.com/Gee1225/gee1225.github.io.git
-        git push origin HEAD
+
+# name: Scrape Talk Locations
+
+# on:
+#   push:
+#     paths:
+#       - 'talks/**'
+#       - 'talkmap.ipynb'
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#     - uses: actions/checkout@v2
+
+#     - name: Set up Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: '3.9'  # Specify the Python version you need
+
+#     - name: Install dependencies
+#       run: |
+#         pip install jupyter pandas requests beautifulsoup4 geopy  # Add other dependencies as needed
+#         pip install getorg --upgrade
+
+#     - name: Run Jupyter Notebook
+#       run: |
+#         jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
+
+#     # - name: Commit changes
+#     #   run: |
+#     #     git config user.name "github-actions[bot]"
+#     #     git config user.email "github-actions[bot]@users.noreply.github.com"
+#     #     git add .
+#     #     git commit -m "Automated update of talk locations" || echo "No changes to commit"
+#     #     git push
+
+#     - name: Commit and Push changes
+#       env:
+#         GH_PAT: ${{ secrets.GH_PAT }}
+#       run: |
+#         git config user.name "github-actions[bot]"
+#         git config user.email "github-actions[bot]@users.noreply.github.com"
+#         git add .
+#         git commit -m "Automated update of talk locations" || echo "No changes to commit"
+#         git remote set-url origin https://x-access-token:${GH_PAT}@github.com/Gee1225/gee1225.github.io.git
+#         git push origin HEAD
         
