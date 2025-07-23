@@ -2,29 +2,26 @@ name: Scrape Talk Locations
 
 on:
   push:
-    branches: [ master ]           # <- change if your default branch is different
-  workflow_dispatch:             # allow manual runs from the Actions tab
+    branches: [ master ]
+  workflow_dispatch:
 
 permissions:
-  contents: write                # needed to push back to the repo
-  actions: write                 # only if you want the follow-up push to trigger other workflows
+  contents: write
+  actions: write     # required if you want your push to trigger other workflows
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0         # required when committing/pushing back
+          fetch-depth: 0
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
           pip install -U jupyter pandas requests beautifulsoup4 geopy getorg
 
@@ -32,9 +29,9 @@ jobs:
         run: |
           jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
 
-      - name: Commit & push changes (if any)
+      - name: Commit & push (if any)
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}   # PAT with repo+workflow scopes, or remove and rely on GITHUB_TOKEN
+          GH_PAT: ${{ secrets.GH_PAT }}   # MUST include workflow scope
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -46,53 +43,3 @@ jobs:
           git commit -m "Automated update of talk locations"
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/Gee1225/gee1225.github.io.git
           git push origin HEAD
-
-
-# name: Scrape Talk Locations
-
-# on:
-#   push:
-#     paths:
-#       - 'talks/**'
-#       - 'talkmap.ipynb'
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-
-#     steps:
-#     - uses: actions/checkout@v2
-
-#     - name: Set up Python
-#       uses: actions/setup-python@v2
-#       with:
-#         python-version: '3.9'  # Specify the Python version you need
-
-#     - name: Install dependencies
-#       run: |
-#         pip install jupyter pandas requests beautifulsoup4 geopy  # Add other dependencies as needed
-#         pip install getorg --upgrade
-
-#     - name: Run Jupyter Notebook
-#       run: |
-#         jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
-
-#     # - name: Commit changes
-#     #   run: |
-#     #     git config user.name "github-actions[bot]"
-#     #     git config user.email "github-actions[bot]@users.noreply.github.com"
-#     #     git add .
-#     #     git commit -m "Automated update of talk locations" || echo "No changes to commit"
-#     #     git push
-
-#     - name: Commit and Push changes
-#       env:
-#         GH_PAT: ${{ secrets.GH_PAT }}
-#       run: |
-#         git config user.name "github-actions[bot]"
-#         git config user.email "github-actions[bot]@users.noreply.github.com"
-#         git add .
-#         git commit -m "Automated update of talk locations" || echo "No changes to commit"
-#         git remote set-url origin https://x-access-token:${GH_PAT}@github.com/Gee1225/gee1225.github.io.git
-#         git push origin HEAD
-        
