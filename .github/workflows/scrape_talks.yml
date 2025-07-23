@@ -1,23 +1,21 @@
-name: Scrape Talks & Rebuild Portfolio
+name: Scrape Talks & Deploy Site
 
 on:
   push:
     branches: [ master ]
-    paths:
-      - 'talks/**'
-      - 'talkmap.ipynb'
-      - '_portfolio/**'
-      - '**/*.md'
-      - '.github/workflows/scrape_talks.yml'
   workflow_dispatch:
 
 permissions:
-  contents: write          # push back to repo
-  pages: write             # call Pages build API
-  actions: write           # only needed if you want this push to trigger OTHER workflows
+  contents: write        # to commit back
+  pages: write           # to deploy Pages
+  id-token: write        # required by actions/deploy-pages
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  scrape-and-build:
+  scrape-build-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -39,9 +37,9 @@ jobs:
         run: |
           jupyter nbconvert --to notebook --execute talkmap.ipynb --output talkmap_out.ipynb
 
-      - name: Commit & push changes if any
+      - name: Commit & push notebook outputs (if any)
         env:
-          GH_PAT: ${{ secrets.GH_PAT }}   # PAT with repo+workflow scope (or drop and rely on GITHUB_TOKEN if you don't need to trigger other workflows)
+          GH_PAT: ${{ secrets.GH_PAT }}   # optional: only if you need pushes to trigger other workflows
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -49,16 +47,32 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Automated update of talk locations & portfolio rebuild trigger"
+            git commit -m "Automated update of talk locations"
             git remote set-url origin https://x-access-token:${GH_PAT:-${GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git
             git push origin HEAD
           fi
 
-      - name: Trigger GitHub Pages rebuild
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # ===== If you're using Jekyll (classic GitHub Pages tooling) =====
+      - name: Setup Ruby (for Jekyll)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Install Jekyll deps
         run: |
-          curl -L -X POST \
-            -H "Accept: application/vnd.github+json" \
-            -H "Authorization: Bearer ${GITHUB_TOKEN}" \
-            https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds
+          bundle install --path vendor/bundle
+
+      - name: Build site
+        run: |
+          bundle exec jekyll build -d _site
+
+      # ===== Upload & deploy Pages artifact =====
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
