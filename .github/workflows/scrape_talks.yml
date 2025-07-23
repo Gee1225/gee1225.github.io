@@ -2,7 +2,7 @@ name: Scrape Talk Locations
 
 on:
   push:
-    branches: [ main ]           # <- change if your default branch is different
+    branches: [ master ]           # <- change if your default branch is different
   workflow_dispatch:             # allow manual runs from the Actions tab
 
 permissions:
