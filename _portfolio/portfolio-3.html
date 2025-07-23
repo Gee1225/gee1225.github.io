@@ -1,14 +1,14 @@
 ---
-title: "Time Series Forecasting App (Synthetic SKU Volume) -  (SARIMA, LSTM, TFT, N-BEATS, PatchTST) on synthetic SKU/FC data."
-excerpt: "A Way to Experiment with Traditional and Genai Time Series Models🎁"
+title: "Time Series Forecasting App (Synthetic SKU Volume)"
+excerpt: "Experiment with SARIMA, LSTM, TFT, N-BEATS & PatchTST on synthetic SKU/FC data. 📈"
 collection: portfolio
 image: /images/forecasting-model.png
 ---
 
 <div class="portfolio-card">
-  <h2>🎁 Time Series</h2>
+  <h2>📈 Time Series Forecasting App</h2>
   <p>
-    An interactive web app built in Streamlit that ingests historical data and applies ARIMA and Facebook Prophet algorithms to generate and visualize forecasts.
+    An interactive Streamlit app that ingests synthetic fulfillment-center SKU data and lets you train/compare traditional and deep-learning forecasters (SARIMA, LSTM, TFT, N-BEATS, PatchTST) with rich feature engineering.
   </p>
   <a
     href="https://syntheticts.streamlit.app/"
@@ -16,96 +16,98 @@ image: /images/forecasting-model.png
     target="_blank"
   >🚀 Launch App</a>
 
+  <h3>Technologies Used:</h3>
+  <ul>
+    <li>Streamlit</li>
+    <li>statsmodels (SARIMAX)</li>
+    <li>PyTorch / PyTorch Forecasting (TFT, N-BEATS)</li>
+    <li>Hugging Face <code>transformers</code> (PatchTST)</li>
+    <li>pandas &amp; numpy</li>
+    <li>scikit-learn (metrics, preprocessing)</li>
+  </ul>
 
-## 🧭 What This Project Is
+  <h3>🧭 What This Project Is</h3>
+  <p>
+    A mock yet realistic <strong>SKU-level inbound/outbound volume forecasting pipeline</strong> for a fulfillment center network. It is built to:
+  </p>
+  <ul>
+    <li>Demonstrate an end-to-end ML workflow for time-series forecasting</li>
+    <li>Serve as an interview artifact / portfolio project</li>
+    <li>Provide a playground for experimenting with multiple model families</li>
+  </ul>
+  <p>The data is synthetic and mimics operational signals (calendar effects, weather, carrier delays, orders, inventory, etc.).</p>
 
-A mock yet realistic **SKU-level inbound/outbound volume forecasting pipeline** for a fulfillment center network. It is built to:
+  <h3>🎯 Objectives</h3>
+  <p>Forecast per <code>(center_id, sku_id)</code> daily volumes to support:</p>
+  <ul>
+    <li>Labor &amp; staffing plans</li>
+    <li>Dock/truck scheduling</li>
+    <li>Inventory replenishment &amp; SKU allocation</li>
+    <li>Exception monitoring (spikes, stockouts)</li>
+  </ul>
 
-- Demonstrate end-to-end ML workflow for time-series forecasting
-- Serve as an interview artifact / portfolio project
-- Provide a playground for experimenting with multiple model families
+  <h3>🗂️ Data Sources (Synthetic CSVs)</h3>
+  <table>
+    <thead>
+      <tr><th>File</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>volume_log.csv</code></td><td>Daily inbound/outbound volume by center &amp; SKU</td></tr>
+      <tr><td><code>calendar.csv</code></td><td>Weekend, holiday, promo flags</td></tr>
+      <tr><td><code>product_catalog.csv</code></td><td>SKU category, storage type, size</td></tr>
+      <tr><td><code>weather.csv</code></td><td>Temperature &amp; alert flags per center</td></tr>
+      <tr><td><code>carrier_tracking.csv</code></td><td>ETA vs actual arrival, delay minutes</td></tr>
+      <tr><td><code>order_feed_stream.csv</code></td><td>Recent order quantities (near-real-time proxy)</td></tr>
+      <tr><td><code>inventory_snapshot.csv</code></td><td>On-hand qty, reorder point, lead time</td></tr>
+    </tbody>
+  </table>
 
-The data is **synthetic** and mimics real operational signals (calendar effects, weather, carrier delays, orders, inventory, etc.).
+  <h3>🧮 Feature Engineering</h3>
+  <ul>
+    <li><strong>Lags:</strong> 1D, 7D, 14D</li>
+    <li><strong>Rolling stats:</strong> 7D mean, 14D std</li>
+    <li><strong>Calendar:</strong> weekday, month, holiday/promo flags</li>
+    <li><strong>Weather:</strong> temperature, severe_alert flag</li>
+    <li><strong>Orders/Carrier:</strong> last 24h orders, delay minutes, late flag</li>
+    <li><strong>Inventory:</strong> available units, stockout risk, lead time</li>
+  </ul>
 
----
+  <h3>🧠 Models Implemented</h3>
+  <p><strong>Classical / Statistical</strong></p>
+  <ul>
+    <li>SARIMAX (statsmodels)</li>
+  </ul>
+  <p><strong>Machine Learning / Gradient Boosting</strong></p>
+  <ul>
+    <li>(Planned) XGBoost / LightGBM baselines</li>
+  </ul>
+  <p><strong>Deep Learning (PyTorch)</strong></p>
+  <ul>
+    <li>LSTM</li>
+    <li>Temporal Fusion Transformer (TFT)</li>
+    <li>N-BEATS</li>
+    <li>PatchTST (via <code>transformers</code>)</li>
+  </ul>
+  <p>
+    The app lets you pick model &amp; horizon, train, view metrics (MAE, RMSE, WAPE/SMAPE), and visualize forecasts with intervals.
+  </p>
 
-## 🎯 Objectives
+  <h3>🧪 Metrics</h3>
+  <ul>
+    <li><strong>MAE</strong>, <strong>RMSE</strong>, <strong>WAPE/SMAPE</strong></li>
+    <li>Rolling backtests / time-based CV splits (coming soon)</li>
+  </ul>
 
-Forecast per **(center\_id, sku\_id)** daily volumes to support:
+  <h3>🖥 App Features</h3>
+  <ul>
+    <li>Model-specific parameter controls (e.g., SARIMA orders, DL window sizes)</li>
+    <li>Interactive plots (actual vs forecast, residuals) — in progress</li>
+    <li>Downloadable forecast results — in progress</li>
+    <li>Caching for faster experimentation</li>
+  </ul>
 
-- Labor & staffing plans
-- Dock/truck scheduling
-- Inventory replenishment & SKU allocation
-- Exception monitoring (spikes, stockouts)
-
----
-
-## 🗂️ Data Sources (Synthetic CSVs)
-
-| File                     | Description                                    |
-| ------------------------ | ---------------------------------------------- |
-| `volume_log.csv`         | Daily inbound/outbound volume by center & SKU  |
-| `calendar.csv`           | Weekend, holiday, promo flags                  |
-| `product_catalog.csv`    | SKU category, storage type, size               |
-| `weather.csv`            | Temperature & alert flags per center           |
-| `carrier_tracking.csv`   | ETA vs actual arrival, delay minutes           |
-| `order_feed_stream.csv`  | Recent order quantities (near-real-time proxy) |
-| `inventory_snapshot.csv` | On-hand qty, reorder point, lead time          |
-
----
-
-## 🧮 Feature Engineering
-
-- **Lags:** 1D, 7D, 14D
-- **Rolling stats:** 7D mean, 14D std
-- **Calendar:** weekday, month, holiday/promo flags
-- **Weather:** temp, severe\_alert flag
-- **Orders/Carrier:** last 24h orders, delay minutes, late flag
-- **Inventory:** available units, stockout risk, lead time
-
----
-
-## 🧠 Models Implemented
-
-**Classical / Statistical**
-
-- SARIMAX (statsmodels)
-
-**Machine Learning / Gradient Boosting**
-
-- (Planned) XGBoost / LightGBM baseline over engineered features
-
-**Deep Learning (PyTorch)**
-
-- LSTM (hand-rolled Keras or PyTorch version depending on branch)
-- Temporal Fusion Transformer (TFT) via PyTorch Forecasting
-- N-BEATS via PyTorch Forecasting
-- PatchTST (Hugging Face `transformers` implementation)
-
-> The app allows selecting model/horizon, training, viewing metrics (MAE, RMSE, WAPE/SMAPE), and visualizing forecasts with intervals.
-
----
-
-## 🧪 Metrics
-
-- **MAE**, **RMSE**, **WAPE/SMAPE** for comparability
-- Rolling backtests / time-based CV splits coming soon
-
----
-
-## 🖥 App Features
-
-- Parameter selection per model (orders for SARIMA, input/forecast window for DL models, etc.)
-- Interactive plots (actual vs forecast, residuals) - under development
-- Downloadable forecast results - - under development
-- Caching for faster experimentation
-
----
-
-## 🚀 Quickstart (Local)
-
-```bash
-# 1. Clone
+  <h3>🚀 Quickstart (Local)</h3>
+  <pre><code># 1. Clone
 git clone https://github.com/Gee1225/ts_synthetic.git
 cd ts_synthetic
 
@@ -117,57 +119,54 @@ pip install -r requirements.txt
 
 # 4. Run
 streamlit run Forecasting_app.py
-```
+</code></pre>
 
-### Runtime & Requirements
+  <h4>Runtime &amp; Requirements</h4>
+  <ul>
+    <li><strong>Python:</strong> pinned via <code>runtime.txt</code> (e.g., 3.10.14 for Streamlit Cloud)</li>
+    <li><code>requirements.txt</code> excludes <code>tensorflow-macos</code>/<code>tensorflow-metal</code> for Linux builds. For local Mac TF, use a dev-only <code>requirements_macos.txt</code>.</li>
+  </ul>
 
-- **Python**: pinned via `runtime.txt` (e.g., `3.10.14` for Streamlit Cloud)
-- **requirements.txt** excludes `tensorflow-macos` / `tensorflow-metal` for Linux builds. If TF is needed locally on Mac, use a dev-only `requirements_macos.txt`.
+  <h3>🌩 Deployment Notes (Streamlit Cloud)</h3>
+  <ul>
+    <li>Place <code>runtime.txt</code> (single line Python version) in repo root</li>
+    <li>Keep <code>requirements.txt</code> minimal and Linux-friendly</li>
+    <li>Clear cache after dependency changes</li>
+  </ul>
 
----
+  <h3>🗺 Roadmap</h3>
+  <ul>
+    <li>✅ PatchTST integration &amp; config fixes</li>
+    <li>✅ TFT/N-BEATS support via PyTorch Forecasting</li>
+    <li>⭕ Time-based cross-validation UI</li>
+    <li>⭕ Hyperparameter search (Optuna/Weights &amp; Biases)</li>
+    <li>⭕ Probabilistic forecasts / quantiles</li>
+    <li>⭕ MLflow experiment tracking</li>
+    <li>⭕ Real-time data ingestion (Kafka/APIs)</li>
+    <li>⭕ Multi-horizon forecasting dashboards</li>
+  </ul>
 
-## 🌩 Deployment Notes (Streamlit Cloud)
-
-- Place `runtime.txt` (single line with Python version) in repo root
-- Keep `requirements.txt` minimal and Linux-friendly (no `tensorflow-macos`)
-- Clear cache after dependency changes
-
----
-
-## 🗺 Roadmap
-
-- ✅ PatchTST integration & config fixes
-- ✅ TFT/N-BEATS support via PyTorch Forecasting
-- ⭕ Time-based cross-validation UI
-- ⭕ Hyperparameter search (Optuna/Weights & Biases)
-- ⭕ Probabilistic forecasts / quantiles
-- ⭕ MLflow experiment tracking
-- ⭕ Real-time data ingestion (Kafka/APIs)
-- ⭕ Multi-horizon forecasting dashboards
-
----
-
-## 🔧 Project Structure
-
-```
-ts_synthetic/
+  <h3>🔧 Project Structure</h3>
+  <pre><code>ts_synthetic/
 ├─ Forecasting_app.py        # Streamlit UI
 ├─ requirements.txt
 ├─ runtime.txt               # Python version pin (for Streamlit Cloud)
 ├─ data/                     # Synthetic CSVs
-```
+</code></pre>
 
----
+  <h3>📜 License</h3>
+  <p>Educational / prototyping only. Synthetic data; no real operational data included.</p>
 
-## 📜 License
+  <h3>🙋‍♂️ Author</h3>
+  <p>
+    Built by <strong>George Agyeah</strong> (Data Enthusiast). Focused on supply chain forecasting, ML engineering, and product analytics.<br/>
+    Open to feedback or collaboration—feel free to reach out or open an issue/PR!
+  </p>
 
-Educational / prototyping only. Synthetic data; no real operational data included.
-
----
-
-## 🙋‍♂️ Author
-
-Built by **George Agyeah** (Data Enthusiast). Focused on supply chain forecasting, ML engineering, and product analytics.
-
-> Open to feedback or collaboration—feel free to reach out or open an issue/PR!
+  <p>
+    <a
+      href="https://syntheticts.streamlit.app/"
+      target="_blank"
+    >🔗 View the App in Fullscreen ➜</a>
+  </p>
 </div>
